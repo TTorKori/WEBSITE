@@ -1,4 +1,8 @@
 body {
   background-color: black;
   color: white;
+}
+
+.list-item-selected {
+  color: blue;
 }/*# sourceMappingURL=App.css.map */

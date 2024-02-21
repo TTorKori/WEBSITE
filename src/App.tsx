@@ -1,13 +1,14 @@
 import './css/App.css'
+import Title from './components/Title'
+import ProductWindow from './components/ProductWindow'
 
 function App() {
 
   return (
-    <>
-      <h1>
-        BRAND
-      </h1>
-    </>
+    <div>
+      <Title />
+      <ProductWindow />
+    </div>
   )
 }
 
