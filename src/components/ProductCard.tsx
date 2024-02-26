@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 interface Props {
-  name: String;
+  children: ReactNode;
 }
 
-function Product({ name}: Props) {
+function ProductCard({children}: Props) {
   const [selectedProduct, setSelectedProduct] = useState(false);
 
   return (
@@ -13,9 +13,9 @@ function Product({ name}: Props) {
       onMouseOut={() => setSelectedProduct(false)}
       className={selectedProduct ? "list-item-selected" : ""}
     >
-      PRODUCT {name}
+      {children}
     </li>
   );
 }
 
-export default Product;
+export default ProductCard;

@@ -1,18 +1,24 @@
 {
-	"products": [
-		{
-			"id": 1,
-			"name": "CLOTHING 1"
-		},
-
-		{
-			"id": 2,
-			"name": "CLOTHING 2"
-		},
-
-		{
-			"id": 3,
-			"name": "CLOTHING 3"
-		}
-	]
+  "products": [
+    {
+      "id": "red",
+      "title": "Red BRAND T-Shirt"
+    },
+    {
+      "id": "black",
+      "title": "Black BRAND T-Shirt"
+    },
+    {
+      "id": "grey",
+      "title": "Grey BRAND T-Shirt"
+    },
+    {
+      "id": "green",
+      "title": "Green BRAND T-Shirt"
+    },
+    {
+      "id": "dark_green",
+      "title": "Dark Green BRAND T-Shirt"
+    }
+  ]
 }
