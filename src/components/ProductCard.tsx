@@ -8,13 +8,13 @@ function ProductCard({children}: Props) {
   const [selectedProduct, setSelectedProduct] = useState(false);
 
   return (
-    <li
+    <div
       onMouseOver={() => setSelectedProduct(true)}
       onMouseOut={() => setSelectedProduct(false)}
-      className={selectedProduct ? "list-item-selected" : ""}
+      className={(selectedProduct ? "list-item-selected" : "")+" product-card"} 
     >
       {children}
-    </li>
+    </div>
   );
 }
 

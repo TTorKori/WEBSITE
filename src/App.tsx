@@ -6,7 +6,7 @@ import products from './assets'
 function App() {
 
   return (
-    <div>
+    <div className='app'>
       <Title />
       <ProductWindow products={products}/>
     </div>
