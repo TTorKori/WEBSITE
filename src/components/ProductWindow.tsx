@@ -17,9 +17,12 @@ function ProductWindow({ products }: Props) {
       {products.length === 0 && <p>No Products Found.</p>}
       {/* Replace the li with Product Component */}
       {products.map((product) => (
+
         <ProductCard key={product.id}>
+
           <img src={product.images[0]} alt="" />
           {product.title}
+
         </ProductCard>
       ))}
     </div>

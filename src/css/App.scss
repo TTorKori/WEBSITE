@@ -6,6 +6,7 @@ body {
 
 .app {
   padding: 50px;
+  position: relative;
 }
 
 .list-item-selected {
@@ -13,10 +14,13 @@ body {
 }
 
 .product-window {
-  margin: 30px;
+  border: 4px dashed green;
+  margin: 30px 50px;
   width: 50%;
   max-height: 500px;
   overflow-y: auto;
+  position: absolute;
+  right: 0;
 }
 
 .product-card {
