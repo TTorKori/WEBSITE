@@ -28,6 +28,7 @@ body {
   width: 200px;
   display: inline-block;
   text-align: center;
+  cursor: pointer;
 }
 .product-card img {
   width: 100%;
