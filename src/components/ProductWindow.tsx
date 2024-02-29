@@ -1,32 +1,14 @@
-import ProductCard from "./ProductCard";
-
-interface Product {
-  id: string;
-  title: string;
-  images: string[];
-}
-
 interface Props {
-  products: Product[];
+  product: string;
+  onReturn: () => void
 }
-
-function ProductWindow({ products }: Props) {
-
+const ProductWindow = ({ product, onReturn }: Props) => {
   return (
-    <div className="product-window">
-      {products.length === 0 && <p>No Products Found.</p>}
-      {/* Replace the li with Product Component */}
-      {products.map((product) => (
-
-        <ProductCard key={product.id}>
-
-          <img src={product.images[0]} alt="" />
-          {product.title}
-
-        </ProductCard>
-      ))}
-    </div>
+    <>
+      <div>This is the Product Window for {product}</div>
+      <button type="button" onClick={onReturn}>Back</button>
+    </>
   );
-}
+};
 
 export default ProductWindow;
