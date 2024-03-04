@@ -5,6 +5,7 @@ import LoginButton from "./components/LoginButton";
 import { useEffect, useState } from "react";
 import ProductShop from "./components/ProductShop";
 import ProductWindow from "./components/ProductWindow";
+import LoginScreen from "./components/LoginScreen";
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
           <ProductShop products={products} onClick={handleProductInteraction} />
         )}
         {showProductWindow && <ProductWindow product={currentProductInView} onReturn={handleReturn}/>}
+      <LoginScreen />
       </div>
     </div>
   );
