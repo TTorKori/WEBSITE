@@ -59,7 +59,6 @@ function App() {
     setShowProductWindow(false);
   }
 
-  console.log(products);
   return (
     <div className="app">
       {fetchError && <p>{`Could not find products ${fetchError}`}</p>}
