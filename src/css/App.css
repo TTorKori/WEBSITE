@@ -31,4 +31,8 @@ body {
 }
 .product-card img {
   width: 100%;
+}
+
+.login {
+  cursor: pointer;
 }/*# sourceMappingURL=App.css.map */

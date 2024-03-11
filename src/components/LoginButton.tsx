@@ -3,6 +3,7 @@ interface Props {
 	onClick: () => void
 }
 
+
 const LoginButton = ({children, onClick}:Props) => {
   return (
 	 <button type="button" onClick={onClick}>{children}</button>
