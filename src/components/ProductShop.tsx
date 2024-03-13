@@ -2,10 +2,25 @@ import ProductCard from "./ProductCard";
 
 interface Props {
   products: any[],
+  productAssets: any[]
   onClick: (product: string) => void
 }
 
-function ProductShop({ products, onClick}: Props) {
+interface ProductData {
+  publicUrl: string
+}
+
+
+function ProductShop({ products, productAssets, onClick}: Props) {
+
+  const getURL = (assets: ProductData[], name: string) => {
+    for (let asset of assets) {
+      let isInURL = asset.publicUrl.includes(`${name}_1`);
+      if(isInURL){
+        return asset.publicUrl;
+      }
+    }
+  }
 
   return (
     <>
@@ -15,7 +30,7 @@ function ProductShop({ products, onClick}: Props) {
 
         <ProductCard key={product.id} onClick={onClick} productId={product.id}>
 
-          {/* <img src={product.images[0]} alt="" /> */}
+          {<img src={getURL(productAssets, product.id)}></img>}
           {product.title}
 
         </ProductCard>
