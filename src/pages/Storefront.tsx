@@ -56,7 +56,7 @@ function Storefront() {
       console.log(bucketData);
 
       const { data: listOfProductFolders, error: listOfProductFoldersError } =
-        await supabaseClient.storage.from("products").list("", {
+        await supabaseClient.storage.from("products").list(undefined, {
           limit: 100,
           offset: 0,
           sortBy: { column: "name", order: "asc" },
@@ -72,47 +72,86 @@ function Storefront() {
       }
 
       if (listOfProductFolders)
-        console.log("This is the list of images in bucket: products");
+        console.log("This is the list of folders in bucket: products");
       console.log(listOfProductFolders);
 
-      setProductAssets(
-        listOfProductFolders.map((productInfo) => {
+      //TODO: FIX THIS
 
-          // const getURLs = async () => {
-          //   const { data: listOfProducts, error: listOfProductsError } =
-          //     await supabaseClient.storage.from("products").list("", {
-          //       limit: 100,
-          //       offset: 0,
-          //       sortBy: { column: "name", order: "asc" },
-          //     });
+      let listOfProductsInFolders: any[] = [];
 
-          //   if (listOfProductsError) {
-          //     setFetchError(
-          //       "Could not access list of products from product folders: " +
-          //         listOfProductsError.message
-          //     );
-          //     setProductAssets([]);
-          //     return;
-          //   }
-          // };
+      for (let productFolderInfo of listOfProductFolders) {
+        const getURLInPromise = async () => {
+          console.log(`Getting files from ${productFolderInfo.name} folder...`);
 
-          // Getting the public URL of one image in database
-          const { data } = supabaseClient.storage
-            .from("products")
-            .getPublicUrl(productInfo.name);
+          const { data: listOfProducts, error: listOfProductsError } =
+            await supabaseClient.storage
+              .from("products")
+              .list(`${productFolderInfo.name}`, {
+                limit: 100,
+                offset: 0,
+                sortBy: { column: "name", order: "asc" },
+              });
 
-          if (!data) {
-            console.log("Error: Could not retrieve image: " + productInfo.name);
-            return {};
+          if (listOfProductsError) {
+            setFetchError(
+              "Could not access list of products from product folders: " +
+                listOfProductsError.message
+            );
+            setProductAssets([]);
+            return [];
           }
 
-          return data;
-        })
-      );
+          console.log(`This is the list of URLS in product folder: ${productFolderInfo.name}`);
+          console.log(listOfProducts);
+          return listOfProducts;
+
+        };
+
+        getURLInPromise()
+          .then((productFolder) => {
+            let imagesInFoler = [];
+
+            for (let productInfo of productFolder) {
+              console.log("Entering folder: ");
+              console.log(productFolder);
+
+              console.log(
+                `Product Folder: ${productInfo.name} is going into the images folder object`
+              );
+              const { data } = supabaseClient.storage
+                .from("products")
+                .getPublicUrl(`${productFolderInfo.name}/${productInfo.name}`);
+
+              if (!data) {
+                throw new Error(
+                  "Error: Could not retrieve image: " + productInfo.name
+                );
+              }
+
+              imagesInFoler.push(data);
+            }
+
+            let folderObj = {
+              folderName: `${productFolderInfo.name}`,
+              images: imagesInFoler,
+            };
+
+            listOfProductsInFolders.push(folderObj);
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            console.log("This is the list of products in their folders");
+            console.log(listOfProductsInFolders);
+          });
+      }
+
+      setProductAssets(listOfProductsInFolders);
     };
 
-    fetchProducts();
     fetchProductAssets();
+    fetchProducts();
   }, []);
 
   const handleProductInteraction = (product: string) => {

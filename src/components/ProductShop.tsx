@@ -1,38 +1,54 @@
 import ProductCard from "./ProductCard";
 
 interface Props {
-  products: any[],
-  productAssets: any[]
-  onClick: (product: string) => void
+  products: any[];
+  productAssets: ProductFolder[];
+  onClick: (product: string) => void;
 }
 
-interface ProductData {
-  publicUrl: string
+interface ProductImageData {
+  publicUrl: string;
 }
 
+interface ProductFolder {
+  folderName: string;
+  images: ProductImageData[];
+}
 
-function ProductShop({ products, productAssets, onClick}: Props) {
+function ProductShop({ products, productAssets, onClick }: Props) {
+  const getImageURL = (
+    productName: string,
+    image: number,
+    productAssets: ProductFolder[]
+  ) => {
+    
+    if (!productAssets) {
+      console.log("PRODUCT ASSETS IS EMPTY");
+      return "";
+    }
 
-  const getURL = (assets: ProductData[], name: string) => {
-    for (let asset of assets) {
-      let isInURL = asset.publicUrl.includes(`${name}_1`);
-      if(isInURL){
-        return asset.publicUrl;
+    for (let productFolder of productAssets) {
+      console.log(`Accessing ${productFolder.folderName}`);
+      if (productName === productFolder.folderName) {
+        return productFolder.images[image].publicUrl;
       }
     }
-  }
+
+    console.log(`Could not retrieve ${productName}_${image} from folders`);
+    return "";
+  };
+
+  console.log(`PRODUCT SHOP: PRODUCT ASSETSS`);
+  console.log(productAssets);
 
   return (
     <>
       {products.length === 0 && <p>No Products Found.</p>}
       {/* Replace the li with Product Component */}
       {products.map((product) => (
-
         <ProductCard key={product.id} onClick={onClick} productId={product.id}>
-
-          {<img src={getURL(productAssets, product.id)}></img>}
+          {<img src={getImageURL(`${product.id}`, 1, productAssets)}></img>}
           {product.title}
-
         </ProductCard>
       ))}
     </>
